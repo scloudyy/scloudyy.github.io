@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="9wOB2Jfczd4pNqgdn_qX_KMfCDFgCO89zlN5kk_Mr_4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"flipXIn","post_body":"slideDownIn","coll_header":"flipXIn","sidebar":"flipXIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="广度优先搜索  搜索策略：从顶点s出发，搜索s所有子节点，等找到s所有子节点之后，再进入子节点搜索。BFS对有向与无向图都适用 为每个顶点着色以保持搜索轨迹：  白色：未被发现的顶点 黑色：所有子节点已经搜索完毕，与黑色节点相连的都是非白色（灰色或黑色）节点 灰色：已被发现，但是子节点并未被搜索完毕，灰色节点可能与白色节点相连  广度优先树：BFS会建立一棵root为源点s的广度优先树，其包含了">
+<meta name="keywords" content="algorithm,CLRS,BFS,DFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广度优先搜索与深度优先搜索 BFS &amp;&amp; DFS">
+<meta property="og:url" content="https://blog.scloudyy.com/posts/f9b74bc/index.html">
+<meta property="og:site_name" content="Scloudyy&#39;s blog">
+<meta property="og:description" content="广度优先搜索  搜索策略：从顶点s出发，搜索s所有子节点，等找到s所有子节点之后，再进入子节点搜索。BFS对有向与无向图都适用 为每个顶点着色以保持搜索轨迹：  白色：未被发现的顶点 黑色：所有子节点已经搜索完毕，与黑色节点相连的都是非白色（灰色或黑色）节点 灰色：已被发现，但是子节点并未被搜索完毕，灰色节点可能与白色节点相连  广度优先树：BFS会建立一棵root为源点s的广度优先树，其包含了">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/CLRS-BFS-and-DFS/412px-Tree_edges.svg.png">
+<meta property="og:updated_time" content="2018-12-17T20:15:27.627Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="广度优先搜索与深度优先搜索 BFS &amp;&amp; DFS">
+<meta name="twitter:description" content="广度优先搜索  搜索策略：从顶点s出发，搜索s所有子节点，等找到s所有子节点之后，再进入子节点搜索。BFS对有向与无向图都适用 为每个顶点着色以保持搜索轨迹：  白色：未被发现的顶点 黑色：所有子节点已经搜索完毕，与黑色节点相连的都是非白色（灰色或黑色）节点 灰色：已被发现，但是子节点并未被搜索完毕，灰色节点可能与白色节点相连  广度优先树：BFS会建立一棵root为源点s的广度优先树，其包含了">
+<meta name="twitter:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/CLRS-BFS-and-DFS/412px-Tree_edges.svg.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://blog.scloudyy.com/posts/f9b74bc/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>广度优先搜索与深度优先搜索 BFS && DFS | Scloudyy's blog</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116839790-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116839790-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Scloudyy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">58</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">35</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/f9b74bc/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scloudyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Scloudyy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">广度优先搜索与深度优先搜索 BFS && DFS
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-01 22:52:36" itemprop="dateCreated datePublished" datetime="2018-05-01T22:52:36-07:00">2018-05-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-17 12:15:27" itemprop="dateModified" datetime="2018-12-17T12:15:27-08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/CLRS/" itemprop="url" rel="index"><span itemprop="name">CLRS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/posts/f9b74bc/" class="leancloud_visitors" data-flag-title="广度优先搜索与深度优先搜索 BFS && DFS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!--
+> **原文首发于**：(blog.scloudyy.com)[https://blog.scloudyy.com/]
+> **原文链接：**(Scloudyy's blog | 广度优先搜索与深度优先搜索 BFS && DFS)[]，转载请注明出处
+-->
+<h1 id="广度优先搜索">广度优先搜索</h1>
+<ul>
+<li>搜索策略：从顶点s出发，搜索s所有子节点，等找到s所有子节点之后，再进入子节点搜索。BFS对有向与无向图都适用</li>
+<li>为每个顶点着色以保持搜索轨迹：
+<ul>
+<li>白色：未被发现的顶点</li>
+<li>黑色：所有子节点已经搜索完毕，与黑色节点相连的都是非白色（灰色或黑色）节点</li>
+<li>灰色：已被发现，但是子节点并未被搜索完毕，灰色节点可能与白色节点相连</li>
+</ul></li>
+<li>广度优先树：BFS会建立一棵root为源点s的广度优先树，其包含了图中s可以到达的所有节点v。广度优先树中节点v到root s的路径对应了图中v到s的最短路径。在Prime最小生成树算法，和Dijkstra单源最短路径算法中，都采用了与BFS 算法类似的思想
+<ul>
+<li>BFS 与 Dijkstra 在无权图或所有边权重相等的图中表现是一致的。 Dijkstra relaxes every edges of the current vertex, and then visit next unvisted vertex which possess the minimal distance to the source vertex. <strong>When the edges' weight all equal to 1, the distance of unvisited vertices to the source only relate to the depth of the tree rooted at source, so Dijkstra degenerate to BFS at this time.</strong></li>
+</ul></li>
+</ul>
+<a id="more"></a>
+<h2 id="伪代码">伪代码</h2>
+<p>假设输入的图 <span class="math inline">\(G=&lt;V,E&gt;\)</span> 使用邻接链表表示</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">BFS(G, s) </span><br><span class="line">    <span class="keyword">for</span> each vertex u in G.V - &#123;s&#125;</span><br><span class="line">        u.color = white</span><br><span class="line">        u.d = MAX <span class="comment">// u.d表示节点u到源点s的距离</span></span><br><span class="line">        u.father = NIL <span class="comment">// u.father表示节点u的父节点</span></span><br><span class="line">    s.color = black</span><br><span class="line">    s.d = <span class="number">0</span></span><br><span class="line">    s.father = NIL</span><br><span class="line">    Q = NIL</span><br><span class="line">    ENQUEUE(Q, s)</span><br><span class="line">    <span class="keyword">while</span> Q != NIL</span><br><span class="line">        u = DEQUEUE(Q)</span><br><span class="line">        <span class="keyword">for</span> each v in G.Adj[u]</span><br><span class="line">            v.color = gray</span><br><span class="line">            v.d = u.d + <span class="number">1</span></span><br><span class="line">            v.father = u</span><br><span class="line">            ENQUEUE(Q, v)</span><br><span class="line">        u.color = balck</span><br></pre></td></tr></table></figure>
+<ul>
+<li>复杂度：
+<ul>
+<li>邻接链表： <span class="math inline">\(\Theta(V + E)\)</span></li>
+<li>邻接矩阵： <span class="math inline">\(\Theta(V^2)\)</span></li>
+</ul></li>
+</ul>
+<h1 id="深度优先搜索">深度优先搜索</h1>
+<ul>
+<li><p>搜索策略：尽可能深地探索图的节点，如果节点所有的边已经被探索，则回溯到上一节点探索其剩余的未被探索的边</p></li>
+<li><p>深度优先森林由于深度优先搜索会从不同节点出发，所以会生成深度优先森林，有深度优先树构成</p></li>
+<li><p>每个节点有u.d属性，代表被发现的时间，u.f属性，代表结束的时间，即其子节点全部被探索完毕。在深度优先搜索中，这两个时间具有层级关系。如果节点v的开始结束时间[v.d, v.f]包含于u的开始结束时间，则v是u的子节点，如果两者不相交，则两节点没有层级关系</p></li>
+<li>顶点着色与BFS一致：
+<ul>
+<li>白色：未被发现的顶点</li>
+<li>灰色：已被发现，但是子节点并未被搜索完毕</li>
+<li>黑色：所有子节点已经搜索完毕</li>
+</ul></li>
+<li><p>边的分类：</p>
+<p>深度优先搜索的同时能够得到生成树( <a href="https://en.wikipedia.org/wiki/Spanning_tree" target="_blank" rel="noopener">spanning tree</a> )，并能够对边进行分类</p>
+<ul>
+<li><p>对于<strong>有向图</strong>中的每条边(u,v)：</p>
+<p><img src="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/CLRS-BFS-and-DFS/412px-Tree_edges.svg.png"></p>
+<ul>
+<li>树边 tree edges：代表(u,v)是生成树树中的边，从树中的节点u指向后代v。第一次探索时v是白色</li>
+<li>正向边 froward edges：与树边一样，同样是生成树中节点u指向后代节点v的边，只是在之前的搜索中，uv已经在生成树中，所以(u,v)已经不能算是树边了。第一次探索时v是黑色，且u discover的时间早，其是v的祖先，u.d &lt; v.d</li>
+<li>反向边 back edges：存在自环。第一次探索时v是灰色</li>
+<li>交叉边 cross edges：代表u,v没有血缘关系。第一次探索时v是黑色，u discover的时间比v晚，u.d &gt; v.d</li>
+</ul></li>
+<li><p>对于<strong>无向图</strong>中的每条边(u,v)：只存在树边与反向边</p></li>
+<li><p>复杂度：</p>
+<ul>
+<li><p>邻接链表： <span class="math inline">\(\Theta(V + E)\)</span></p></li>
+<li><p>邻接矩阵： <span class="math inline">\(\Theta(V^2)\)</span></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="dfs探索有向无向图并对边进行分类">DFS探索有向/无向图并对边进行分类</h2>
+<p>大多数时候我们只需要避免在dfs时形成环，那么只需要记录node是否被visited，不访问已经被visited的node就能顺利进行dfs；如果我们要判断是否存在环，就需要记录node是unvisited, visited, or finished，只有访问visited的node就是环的特征；如果需要识别四种边，则需要以下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Learn</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] list = <span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">3</span>&#125;, &#123;<span class="number">3</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">        DirectedGraph dg = <span class="keyword">new</span> DirectedGraph(list);</span><br><span class="line">        dg.dfs();</span><br><span class="line"></span><br><span class="line">        UndirectedGraph udg = <span class="keyword">new</span> UndirectedGraph(list);</span><br><span class="line">        udg.dfs();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DirectedGraph</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, List&lt;Integer&gt;&gt; adjList;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxNodeLabel;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] visited;  <span class="comment">// record the first visit time</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] finished;  <span class="comment">// record the finish time</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> time;</span><br><span class="line">    DirectedGraph(<span class="keyword">int</span>[][] list) &#123;</span><br><span class="line">        adjList = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">// if input parameter has indicate the number of node, then don't need to use Map to represent adjList, just use List</span></span><br><span class="line">        maxNodeLabel = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] li : list) &#123;</span><br><span class="line">            adjList.computeIfAbsent(li[<span class="number">0</span>], key -&gt; <span class="keyword">new</span> LinkedList&lt;&gt;()).add(li[<span class="number">1</span>]);</span><br><span class="line">            adjList.computeIfAbsent(li[<span class="number">1</span>], key -&gt; <span class="keyword">new</span> LinkedList&lt;&gt;());</span><br><span class="line">            maxNodeLabel = Math.max(maxNodeLabel, Math.max(li[<span class="number">0</span>], li[<span class="number">1</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">int</span>[maxNodeLabel + <span class="number">1</span>];</span><br><span class="line">        finished = <span class="keyword">new</span> <span class="keyword">int</span>[maxNodeLabel + <span class="number">1</span>];</span><br><span class="line">        time = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer node : adjList.keySet())</span><br><span class="line">            <span class="keyword">if</span> (visited[node] == <span class="number">0</span>) <span class="comment">// traverse over the key of adjList, if node has not been discovered, the dfs it</span></span><br><span class="line">                exeDfs(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exeDfs</span><span class="params">(Integer cur)</span> </span>&#123;</span><br><span class="line">        visited[cur] = ++time; <span class="comment">// record visit time</span></span><br><span class="line">        <span class="keyword">for</span> (Integer next : adjList.get(cur)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (finished[next] != <span class="number">0</span>) &#123; <span class="comment">// if next has finished discovery, next is a black cur</span></span><br><span class="line">                <span class="keyword">if</span> (visited[cur] &lt; visited[next]) &#123; <span class="comment">// if cur's visit time less than next's visit time, then cur is the ancestor of next</span></span><br><span class="line">                    System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : forward edge"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123; <span class="comment">// else cur and next are not relatives</span></span><br><span class="line">                    System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : cross edge"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123; <span class="comment">// if next has not finished discovery</span></span><br><span class="line">                   <span class="comment">// if you don't need to distinct forward and cross edge, then maybe you don't need to record finish time</span></span><br><span class="line">                   <span class="comment">// and just use the code below to perform right dfs</span></span><br><span class="line">                <span class="keyword">if</span> (visited[next] != <span class="number">0</span>) &#123; <span class="comment">// next has not been discovered, normal</span></span><br><span class="line">                    System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : tree edge"</span>);</span><br><span class="line">                    exeDfs(next);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123; <span class="comment">// next has not finished discovery however it has been discovered, then there is a circle</span></span><br><span class="line">                    System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : back edge"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        finished[cur] = ++time; <span class="comment">// record finish time</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UndirectedGraph</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, List&lt;Integer&gt;&gt; adjList;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxNodeLabel;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] visited;</span><br><span class="line">    <span class="comment">// since undirected graph only has tree edge and back edge</span></span><br><span class="line">    <span class="comment">// it is not necessary to record the specific visit or finish time of a node</span></span><br><span class="line">    <span class="comment">// in this case, visited record the state of a node: 0-&gt;undiscovered, 1-&gt;discovered, 2-&gt;finished</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] father;</span><br><span class="line">    <span class="comment">// since each nodes pair in the undirected graph has two-way edges,</span></span><br><span class="line">    <span class="comment">// however, unlike directed graph, these two edge do not form a circle, indeed they are the same edge</span></span><br><span class="line">    <span class="comment">// we should prevent a node visiting its father node and mistake it as a new circle in dfs recursion</span></span><br><span class="line">    <span class="comment">// use father array to record node's father</span></span><br><span class="line">    UndirectedGraph(<span class="keyword">int</span>[][] list) &#123;</span><br><span class="line">        adjList = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">// if input parameter has indicate the number of node, then just need to ust List to represent graph</span></span><br><span class="line">        maxNodeLabel = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] li : list) &#123;</span><br><span class="line">            adjList.computeIfAbsent(li[<span class="number">0</span>], key -&gt; <span class="keyword">new</span> LinkedList&lt;&gt;()).add(li[<span class="number">1</span>]);</span><br><span class="line">            adjList.computeIfAbsent(li[<span class="number">1</span>], key -&gt; <span class="keyword">new</span> LinkedList&lt;&gt;()).add(li[<span class="number">0</span>]);</span><br><span class="line">            maxNodeLabel = Math.max(maxNodeLabel, Math.max(li[<span class="number">0</span>], li[<span class="number">1</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">int</span>[maxNodeLabel + <span class="number">1</span>];</span><br><span class="line">        father = <span class="keyword">new</span> <span class="keyword">int</span>[maxNodeLabel + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer node : adjList.keySet())</span><br><span class="line">            <span class="keyword">if</span> (visited[node] == <span class="number">0</span>)</span><br><span class="line">                father[node] = node;</span><br><span class="line">                exeDfs(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">exeDfs</span><span class="params">(Integer cur)</span> </span>&#123;</span><br><span class="line">        visited[cur] = <span class="number">1</span>; <span class="comment">// the cur node has been discovered</span></span><br><span class="line">        <span class="keyword">for</span> (Integer next : adjList.get(cur)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (visited[next] == <span class="number">1</span> &amp;&amp; father[cur] != next) &#123;</span><br><span class="line">                <span class="comment">// if next node has been discovered and it is not the cur's father, then we find a new circle</span></span><br><span class="line">                System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : back edge"</span>);</span><br><span class="line">                <span class="keyword">int</span> tmp = cur;</span><br><span class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"Circle: "</span> + cur + <span class="string">" -&gt; "</span>);</span><br><span class="line">                <span class="comment">// use the father[] array to backtrack the whole circle</span></span><br><span class="line">                <span class="keyword">while</span> (father[tmp] != next) &#123;</span><br><span class="line">                    sb.append(father[tmp]).append(<span class="string">" -&gt; "</span>);</span><br><span class="line">                    tmp = father[tmp];</span><br><span class="line">                &#125;</span><br><span class="line">                sb.append(next);</span><br><span class="line">                System.out.println(sb.toString());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (visited[next] == <span class="number">0</span>) &#123; <span class="comment">// if next has not been discovered, it is a tree edge</span></span><br><span class="line">                System.out.println(<span class="string">"("</span> + cur + <span class="string">", "</span> + next + <span class="string">") : tree edge"</span>);</span><br><span class="line">                father[next] = cur;</span><br><span class="line">                exeDfs(next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        visited[cur] = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料">[参考资料]</h1>
+<ul>
+<li><a href="https://mitpress.mit.edu/books/introduction-algorithms" target="_blank" rel="noopener">Introduction to Algorithms</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Depth-first_search</a></li>
+<li><a href="https://www.cnblogs.com/TenosDoIt/p/3644225.html" target="_blank" rel="noopener">判断一个图是否有环</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/26e60590/" rel="bookmark">堆排序 Heap Sort</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/a1ccdb7/" rel="bookmark">拓扑排序 Topological Sort</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/3252a2b8/" rel="bookmark">钢管分割 Rod Cutting</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/8eb16336/" rel="bookmark">快排 Quick Sort</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/a0592a72/" rel="bookmark">动态规划 Dynamic Programming</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>scloudyy</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.scloudyy.com/posts/f9b74bc/" title="广度优先搜索与深度优先搜索 BFS && DFS">https://blog.scloudyy.com/posts/f9b74bc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          
+            <a href="/tags/CLRS/" rel="tag"># CLRS</a>
+          
+            <a href="/tags/BFS/" rel="tag"># BFS</a>
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/716fcce3/" rel="next" title="C++顺序容器小结">
+                <i class="fa fa-chevron-left"></i> C++顺序容器小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/a1ccdb7/" rel="prev" title="拓扑排序 Topological Sort">
+                拓扑排序 Topological Sort <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg" alt="scloudyy">
+            
+              <p class="site-author-name" itemprop="name">scloudyy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/scloudyy" title="GitHub &rarr; https://github.com/scloudyy" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:onecloud.shen@gmail.com" title="E-Mail &rarr; mailto:onecloud.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#广度优先搜索"><span class="nav-number">1.</span> <span class="nav-text">广度优先搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#伪代码"><span class="nav-number">1.1.</span> <span class="nav-text">伪代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度优先搜索"><span class="nav-number">2.</span> <span class="nav-text">深度优先搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dfs探索有向无向图并对边进行分类"><span class="nav-number">2.1.</span> <span class="nav-text">DFS探索有向/无向图并对边进行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">[参考资料]</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scloudyy</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+    
+      
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+    <script>
+      var disqus_config = function () {
+        this.page.url = "https://blog.scloudyy.com/posts/f9b74bc/";
+        this.page.identifier = "posts/f9b74bc/";
+        this.page.title = '广度优先搜索与深度优先搜索 BFS && DFS';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-scloudyy-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        $(function () {
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          if (offsetTop <= 0) {
+            // load directly when there's no a scrollbar
+            loadComments();
+          } else {
+            $(window).on('scroll.disqus_scroll', function () {
+              // offsetTop may changes because of manually resizing browser window or lazy loading images.
+              var offsetTop = $('#comments').offset().top - $(window).height();
+              var scrollTop = $(window).scrollTop();
+
+              // pre-load comments a bit? (margin or anything else)
+              if (offsetTop - scrollTop < 60) {
+                $(window).off('.disqus_scroll');
+                loadComments();
+              }
+            });
+          }
+        });
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "GwIH6xTd52wGeIO0tHFmEtm3-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "GwIH6xTd52wGeIO0tHFmEtm3-gzGzoHsz",
+                'X-LC-Key': "za5RPfTayYB0y1aXea7YaMvr",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+    overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+
+</body>
+</html>

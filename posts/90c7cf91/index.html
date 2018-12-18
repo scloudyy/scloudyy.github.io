@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="9wOB2Jfczd4pNqgdn_qX_KMfCDFgCO89zlN5kk_Mr_4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"flipXIn","post_body":"slideDownIn","coll_header":"flipXIn","sidebar":"flipXIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="行末加分号的语句不会输出，没有加分号的语句将会强制输出 []表示一个矩阵，每行用分号结束 12A1 = [1 2 3]; %行向量 A2 = [1; 2; 3]; %列向量">
+<meta name="keywords" content="matlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matlab基础">
+<meta property="og:url" content="https://blog.scloudyy.com/posts/90c7cf91/index.html">
+<meta property="og:site_name" content="Scloudyy&#39;s blog">
+<meta property="og:description" content="行末加分号的语句不会输出，没有加分号的语句将会强制输出 []表示一个矩阵，每行用分号结束 12A1 = [1 2 3]; %行向量 A2 = [1; 2; 3]; %列向量">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-17T07:44:58.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Matlab基础">
+<meta name="twitter:description" content="行末加分号的语句不会输出，没有加分号的语句将会强制输出 []表示一个矩阵，每行用分号结束 12A1 = [1 2 3]; %行向量 A2 = [1; 2; 3]; %列向量">
+
+
+
+
+
+
+  <link rel="canonical" href="https://blog.scloudyy.com/posts/90c7cf91/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Matlab基础 | Scloudyy's blog</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116839790-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116839790-1');
+</script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Scloudyy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">58</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">35</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/90c7cf91/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scloudyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Scloudyy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Matlab基础
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-06 12:55:23" itemprop="dateCreated datePublished" datetime="2018-04-06T12:55:23-07:00">2018-04-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-16 23:44:58" itemprop="dateModified" datetime="2018-12-16T23:44:58-08:00">2018-12-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/matlab/" itemprop="url" rel="index"><span itemprop="name">matlab</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/posts/90c7cf91/" class="leancloud_visitors" data-flag-title="Matlab基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>行末加分号的语句不会输出，没有加分号的语句将会强制输出</p></li>
+<li><p>[]表示一个矩阵，每行用分号结束 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A1 = [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]; <span class="comment">%行向量 </span></span><br><span class="line">A2 = [<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>]; <span class="comment">%列向量</span></span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<a id="more"></a>
+<h1 id="取元素">取元素</h1>
+<p>A(1, 2)取单个元素，A(1, 1:3)取出第二行 1 到 3 个元素， matlab 从 1 开始计数<br> 同样，对行也可以用冒号这种形式，如果只有冒号表示取全部，行列最后是通道值。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">A = [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>; <span class="number">4</span> <span class="number">5</span> <span class="number">6</span>; <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>]</span><br><span class="line">A(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">% 5</span></span><br><span class="line">A(<span class="number">2</span>, <span class="number">2</span>:<span class="number">3</span>)</span><br><span class="line"><span class="comment">% 5 6</span></span><br><span class="line"></span><br><span class="line">img = imread(<span class="string">'1.bmp'</span>);</span><br><span class="line">a = img;</span><br><span class="line">img(:, <span class="number">30</span>, <span class="number">1</span>) = <span class="number">0</span>;</span><br><span class="line">img(:, <span class="number">30</span>, <span class="number">2</span>) = <span class="number">0</span>;</span><br><span class="line">img(:, <span class="number">30</span>, <span class="number">3</span>) = <span class="number">255</span>;</span><br><span class="line"><span class="built_in">figure</span>;</span><br><span class="line">imshow(a);</span><br><span class="line">title(<span class="string">'蓝线'</span>);</span><br><span class="line"><span class="comment">% 复制 img 为 a，将 a 的第 30 列所有像素变为蓝色并显示</span></span><br><span class="line"></span><br><span class="line">b = img;</span><br><span class="line">img(:, :, <span class="number">1</span>) = <span class="number">0</span>;</span><br><span class="line">img(:, :, <span class="number">2</span>) = <span class="number">0</span>;</span><br><span class="line">img(:, :, <span class="number">3</span>) = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">figure</span>;</span><br><span class="line">imshow(a);</span><br><span class="line">title(<span class="string">'黑图'</span>);</span><br><span class="line">imwrite(b, <span class="string">'a.bmp'</span>);</span><br><span class="line"><span class="comment">% 复制 img 为 b，并全图赋为黑色，显示并保存</span></span><br><span class="line"></span><br><span class="line">c = [b, img];</span><br><span class="line"><span class="comment">% 将 img 矩阵附加到 b 矩阵后</span></span><br><span class="line"></span><br><span class="line">c = img(<span class="number">10</span>:<span class="number">100</span>, <span class="number">20</span>:<span class="number">200</span>, <span class="number">1</span>:<span class="number">3</span>);</span><br><span class="line"><span class="comment">% 将 img 的第 10 到 100 行，第 20 到 200 列赋给 c</span></span><br></pre></td></tr></table></figure>
+<p>矩阵创建操作都用[]，矩阵取元素操作都用()</p>
+<h1 id="循环">循环</h1>
+<p>for i = 起始值:步长:结束值<br> 主体语句; <br> end (包括结束值)</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">2</span>:<span class="number">2</span>:<span class="number">10</span></span><br><span class="line">    a = a + <span class="built_in">i</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">b = (<span class="number">2</span>:<span class="number">2</span>:<span class="number">10</span>);</span><br><span class="line"><span class="comment">% 2 4 6 8 10</span></span><br><span class="line"><span class="comment">% 其实 起始值:步长:结束值 是一个行向量，即一行的矩阵</span></span><br><span class="line"><span class="comment">% 循环更一般的表达式是  循环变量 = 矩阵表达式</span></span><br><span class="line"></span><br><span class="line">b = [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>; <span class="number">4</span> <span class="number">5</span> <span class="number">6</span>; <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>];</span><br><span class="line">a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = b</span><br><span class="line">    a = a + <span class="built_in">i</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">% 貌似只取列向量。</span></span><br></pre></td></tr></table></figure>
+<h1 id="条件判断">条件判断</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">if</span> a &lt; <span class="number">10</span></span><br><span class="line">    flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">elseif</span> a == <span class="number">10</span></span><br><span class="line">    flag = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    flag = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数">函数</h1>
+<p>matlab里自定义的函数都是以文件的形式，一个函数一个文件，当然函数文件里也能有子函数，但子函数只能在该文件内调用。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[s, p]</span> = <span class="title">fcircle</span><span class="params">(r)</span></span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line">s = <span class="built_in">pi</span> * r * r;</span><br><span class="line">p = <span class="number">2</span> * <span class="built_in">pi</span> * r;</span><br></pre></td></tr></table></figure>
+<p>文件名就叫 fcircle.m 传入的参数不会改变<br> matlab 搜索逻辑:<br> 1.检查是不是变量<br> 2.检查是不是内部函数<br> 3.检查是不是当前目录下的 M 文件<br> 4.检查是不是 matlab 搜索路径中其它目录下的 M 文件</p>
+<p>要注意变量在 Workspace 中有没有存在。</p>
+<h1 id="常用内置函数">常用内置函数</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">src = im2double(imread(<span class="string">'src.bmp'</span>));</span><br><span class="line">[height, width, ~] = <span class="built_in">size</span>(src);</span><br><span class="line">hsv = <span class="built_in">rgb2hsv</span>(src);</span><br></pre></td></tr></table></figure>
+<h1 id="数据类型转换">数据类型转换</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num2str(<span class="number">0.1</span>);</span><br><span class="line">str2num(<span class="string">'0.1'</span>);</span><br><span class="line">lab = rgb2lab(rgb);</span><br><span class="line">gray = rgb2gray(rgb);</span><br></pre></td></tr></table></figure>
+<h1 id="代码分行">代码分行</h1>
+<p>如果一句代码太长需要分行写，再分行处加上...，matlab会将用...连接的两行代码视为连贯的一句代码。 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data(count, <span class="number">1</span>) = (ori(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>) - obj(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>))^<span class="number">2</span> + ...</span><br><span class="line">                 (ori(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>) - obj(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>))^<span class="number">2</span> + ...</span><br><span class="line">                 (ori(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>) - obj(<span class="built_in">i</span>, <span class="built_in">j</span>, <span class="number">1</span>))^<span class="number">2</span> ;</span><br></pre></td></tr></table></figure></p>
+<h2 id="计算图像边缘">计算图像边缘</h2>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I=rgb2gray(I);</span><br><span class="line">BW1 = edge(I,<span class="string">'canny'</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="点乘与叉乘">点乘与叉乘</h1>
+<p>点乘结果是一个标量，又称内积</p>
+<p><span class="math inline">\(\vec{a}\cdot \vec{b}=\left | \vec{a} \right |\left | \vec{b} \right |cos\theta\)</span></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">A = [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>];</span><br><span class="line">B = [<span class="number">3</span> <span class="number">2</span> <span class="number">1</span>];</span><br><span class="line"><span class="built_in">dot</span>(A,B); <span class="comment">% 点乘</span></span><br><span class="line"><span class="comment">% 根据点乘的几何意义可以求出两向量夹角的 cos 值，norm()求向量的长度</span></span><br><span class="line">cosTheta = <span class="built_in">dot</span>(A,B)/norm(A)/norm(B);</span><br><span class="line">theta = <span class="built_in">acos</span>(cosTheta);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 只要向量(矩阵)内的元素两两相乘</span></span><br><span class="line">C = A.*B;</span><br><span class="line"><span class="built_in">dot</span>(A,B) = sum(A.*B);</span><br><span class="line"></span><br><span class="line"><span class="comment">% sum()只将列元素相加，如果想得到矩阵所有元素相加的结果</span></span><br><span class="line">sum(sum(A));</span><br></pre></td></tr></table></figure>
+<p>向量叉乘结果仍然是向量,叉积垂直于两向量所在的平面</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cross</span>(A,B);</span><br></pre></td></tr></table></figure>
+<h1 id="文件操作">文件操作</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">f = fopen(<span class="string">'file.txt'</span>, <span class="string">'w'</span>);</span><br><span class="line">fprintf(f, <span class="string">'%f \n'</span>, <span class="number">0.1</span>);</span><br><span class="line"><span class="comment">% data = fscanf(fid,format,size);</span></span><br><span class="line">data = fscanf(f,<span class="string">'%f %f'</span>, [<span class="number">2</span>, <span class="built_in">inf</span>]);</span><br><span class="line"><span class="comment">% 其中data为读取内容的数组，它的大小由size决定，即如果size为[2,3]，data即为2行3列，如果size为[4 inf]，则data为4行n列，而且data数据先按列填满4个，之后再换一列。size是一个[m n]的向量</span></span><br></pre></td></tr></table></figure>
+<p>'r' 只读，文件必须存在（缺省的打开方式）</p>
+<p>'w' 写文件，若文件已存在则原内容将被覆盖；若文件不存在则新建一个</p>
+<p>'a' 在文件末尾添加，文件若不存在则新建一个</p>
+<p>'r+' 可读可写，文件必须存在</p>
+<p>'w+' 可读可写，若文件已存在则原内容将被覆盖；若文件不存在则新建一个</p>
+<p>'a+' 可读可写可添加，文件若不存在则新建一个</p>
+<h1 id="读取一个文件夹中的图像">读取一个文件夹中的图像</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fileFolder=fullfile(<span class="string">'E:\file'</span>);</span><br><span class="line">dirOutput=dir(fullfile(fileFolder,<span class="string">'*'</span>));</span><br><span class="line">fileNames=&#123;dirOutput.name&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">1</span>:<span class="built_in">length</span>(fileNames)</span><br><span class="line">    <span class="keyword">if</span> sum(strfind(char(fileNames(<span class="built_in">i</span>)), <span class="string">'bmp'</span>)) || sum(strfind(char(fileNames(<span class="built_in">i</span>)), <span class="string">'jpg'</span>)) || sum(strfind(char(fileNames(<span class="built_in">i</span>)), <span class="string">'png'</span>))</span><br><span class="line">        <span class="comment">% 加上 sum 因为没有这个文件的话返回的是[]，要把它转为数值</span></span><br><span class="line">        img = imread(char(strcat(<span class="string">'img\', fileNames(i))));</span></span><br><span class="line"><span class="string">        hsv = rgb2hsv(img);</span></span><br><span class="line"><span class="string">        v = hsv(:,:,3);</span></span><br><span class="line"><span class="string">        imwrite(v, char(strcat('</span>HSV\<span class="string">', fileNames(i), '</span>_HSV.bmp')));</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h1 id="结构体">结构体</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 统一赋值</span></span><br><span class="line">s1 = sturct(<span class="string">'field1'</span>,values1,<span class="string">'field2'</span>,values2);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 直接赋值</span></span><br><span class="line">s2.field1 = values1;</span><br><span class="line">s2.field2 = values2;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 删除属性</span></span><br><span class="line">s1 = refield(s1, <span class="string">'field2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 通过fieldnames()来获取所有字段的名称</span></span><br><span class="line">fieldnames(s2);</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">	<span class="string">'field1'</span></span><br><span class="line">	<span class="string">'field2'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 通过isfield()来判断是否存在某一字段</span></span><br><span class="line">isfield(s2, <span class="string">'field3'</span>)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">	<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h1 id="排序">排序</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a=[<span class="number">5</span> <span class="number">7</span> <span class="number">8</span>; <span class="number">4</span> <span class="number">6</span> <span class="number">1</span>; <span class="number">8</span> <span class="number">0</span> <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line">a =</span><br><span class="line">     <span class="number">5</span>     <span class="number">7</span>     <span class="number">8</span></span><br><span class="line">     <span class="number">4</span>     <span class="number">6</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">8</span>     <span class="number">0</span>     <span class="number">7</span></span><br><span class="line"></span><br><span class="line">&gt;&gt; <span class="built_in">sortrows</span>(a,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line">     <span class="number">4</span>     <span class="number">6</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">8</span>     <span class="number">0</span>     <span class="number">7</span></span><br><span class="line">     <span class="number">5</span>     <span class="number">7</span>     <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sort</span>(A,<span class="string">'descend'</span>) <span class="comment">% 一维</span></span><br></pre></td></tr></table></figure>
+<h1 id="求解大型方程组">求解大型方程组</h1>
+<p>X = bicg(A,B) attempts to solve the system of linear equations A*X=B for X.</p>
+<p>sparse(m,n) Create sparse matrix.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">i</span> = [<span class="number">1</span> <span class="number">2</span>];</span><br><span class="line"><span class="built_in">j</span> = [<span class="number">1</span> <span class="number">2</span>];</span><br><span class="line">s = [<span class="number">2</span> <span class="number">2</span>];</span><br><span class="line">A = sparse(<span class="built_in">i</span>, <span class="built_in">j</span>, s, <span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">B = [<span class="number">1</span>; <span class="number">1</span>];</span><br><span class="line">X = bicg(A, B);</span><br></pre></td></tr></table></figure>
+<h1 id="随机数">随机数</h1>
+<p>rand([m n]) 产生 m 行, n 列 (0，1) 范围内均匀分布的伪随机数</p>
+<p>如果要求在区间 (a,b) 内产生 m<em>n 个均匀分布的随机数: r = a + (b-a).</em>rand([m n]);</p>
+<p>生成一个: r = a + (b-a).*rand([1, 1]);</p>
+<h1 id="命令行打印">命令行打印</h1>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str = sprintf(<span class="string">'line: %d'</span>, <span class="built_in">i</span>);</span><br><span class="line"><span class="built_in">disp</span>(str);</span><br></pre></td></tr></table></figure>
+<h1 id="tips">Tips</h1>
+<p>Ctrl+R 注释</p>
+<p>Ctrl+T 取消注释</p>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/d4d566/" rel="bookmark">MATLAB联通域操作小记</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/bba64e0/" rel="bookmark">MATLAB: 告别for循环</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/465acdd6/" rel="bookmark">Matlab中的sparse函数</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>scloudyy</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://blog.scloudyy.com/posts/90c7cf91/" title="Matlab基础">https://blog.scloudyy.com/posts/90c7cf91/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/matlab/" rel="tag"># matlab</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/33a544be/" rel="next" title="Python图像处理 - Pillow的基本使用">
+                <i class="fa fa-chevron-left"></i> Python图像处理 - Pillow的基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/8f6abaad/" rel="prev" title="LaTeX数学公式">
+                LaTeX数学公式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg" alt="scloudyy">
+            
+              <p class="site-author-name" itemprop="name">scloudyy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/scloudyy" title="GitHub &rarr; https://github.com/scloudyy" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:onecloud.shen@gmail.com" title="E-Mail &rarr; mailto:onecloud.shen@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#取元素"><span class="nav-number">1.</span> <span class="nav-text">取元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环"><span class="nav-number">2.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件判断"><span class="nav-number">3.</span> <span class="nav-text">条件判断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用内置函数"><span class="nav-number">5.</span> <span class="nav-text">常用内置函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型转换"><span class="nav-number">6.</span> <span class="nav-text">数据类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码分行"><span class="nav-number">7.</span> <span class="nav-text">代码分行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算图像边缘"><span class="nav-number">7.1.</span> <span class="nav-text">计算图像边缘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点乘与叉乘"><span class="nav-number">8.</span> <span class="nav-text">点乘与叉乘</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件操作"><span class="nav-number">9.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读取一个文件夹中的图像"><span class="nav-number">10.</span> <span class="nav-text">读取一个文件夹中的图像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构体"><span class="nav-number">11.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">12.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求解大型方程组"><span class="nav-number">13.</span> <span class="nav-text">求解大型方程组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机数"><span class="nav-number">14.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行打印"><span class="nav-number">15.</span> <span class="nav-text">命令行打印</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tips"><span class="nav-number">16.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scloudyy</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+  
+    
+      
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+  
+
+  
+    <script>
+      var disqus_config = function () {
+        this.page.url = "https://blog.scloudyy.com/posts/90c7cf91/";
+        this.page.identifier = "posts/90c7cf91/";
+        this.page.title = 'Matlab基础';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://blog-scloudyy-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        $(function () {
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          if (offsetTop <= 0) {
+            // load directly when there's no a scrollbar
+            loadComments();
+          } else {
+            $(window).on('scroll.disqus_scroll', function () {
+              // offsetTop may changes because of manually resizing browser window or lazy loading images.
+              var offsetTop = $('#comments').offset().top - $(window).height();
+              var scrollTop = $(window).scrollTop();
+
+              // pre-load comments a bit? (margin or anything else)
+              if (offsetTop - scrollTop < 60) {
+                $(window).off('.disqus_scroll');
+                loadComments();
+              }
+            });
+          }
+        });
+      
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function ({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1}))
+                .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function () {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + "GwIH6xTd52wGeIO0tHFmEtm3-gzGzoHsz")
+        .done(function ({ api_server }) {
+          var Counter = function (method, url, data) {
+            return $.ajax({
+              method: method,
+              url: `https://${api_server}/1.1${url}`,
+              headers: {
+                'X-LC-Id': "GwIH6xTd52wGeIO0tHFmEtm3-gzGzoHsz",
+                'X-LC-Key': "za5RPfTayYB0y1aXea7YaMvr",
+                'Content-Type': 'application/json',
+              },
+              data: data,
+            });
+          };
+          
+          addCount(Counter);
+          
+        })
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+    overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+
+  
+  
+  
+  <script src="/lib/pangu/dist/pangu.min.js?v=3.3"></script>
+  <script>pangu.spacingPage();</script>
+
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+  
+
+</body>
+</html>
