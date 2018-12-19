@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Java基础类型与位操作]]></title>
+    <url>%2Fposts%2F7a01e2e7%2F</url>
+    <content type="text"><![CDATA[基础类型 type space byte 1byte 8bit short 2byte 16bit int 4byte 32bit long 8byte 64bit float 4byte 32bit double 8byte 64bit 一个16进制数是4bit，1byte可以表示2个16进制数，一个int可以表示8个16进制数 有符号数最高位为符号位，0为正1为负，int范围是 \(-2^{31}\) ~ $ 2^{31}-1$ 位运算 与运算符 &amp; 两个bit都为1，结果才为1，否则结果为0 或运算符 | 两个bit只要有一个为1，那么结果就是1，否则就为0 非运算符 ~ 如果bit为0，结果是1，如果bit为1，结果是0 异或运算符 ^ 两个bit相同则结果为0，不同则结果为1 左移 &lt;&lt;，左移补零 右移 &gt;&gt;，右移补符号位 无符号右移，忽略符号位，空位都以0补齐 &gt;&gt;&gt; ，没有无符号左移，因为左移都是补零，不存在分歧 。最高位为符号位，0为正数，1为负数 1234567891011121314151617181920212223// 左移会影响符号位int a = 0x40000000; // a == 1073741824String str = Integer.toBinaryString(a); // "01000000000000000000000000000000"a &lt;&lt;= 1; // a == -2147483648str = Integer.toBinaryString(a); // "10000000000000000000000000000000"a &lt;&lt;= 1; // a == 0str = Integer.toBinaryString(a); // "00000000000000000000000000000000"// 有符号右移，符号位不变，右移补符号位a = 0xc0000000;str = Integer.toBinaryString(a); // "11000000000000000000000000000000"a &gt;&gt;= 1;str = Integer.toBinaryString(a); // "11100000000000000000000000000000"a = 0x40000000;str = Integer.toBinaryString(a); // "01000000000000000000000000000000"a &gt;&gt;= 1;str = Integer.toBinaryString(a); // "00100000000000000000000000000000"// 无符号左移a = 0xc0000000;str = Integer.toBinaryString(a); // "11000000000000000000000000000000"a &gt;&gt;&gt;= 1;str = Integer.toBinaryString(a); // "01100000000000000000000000000000" 二进制有符号数中，最高位为符号位，最高位为 1 代表负数，最高位为 0 代表正数。 负数在计算机中都是以补码的形式存在的（整数反正补码反码都一样） 原码：就是当前数字的二进制表现形式，如-1的原码是1000 0001 (Byte) 反码：正数的反码就是本身。负数的反码是二进制保留符号位，剩余位取反，比如-1的反码是1111 1110，也可以理解为-1的反码是其绝对值取反； 补码：正数的反码、补码、原码都是一样的，负数的补码是在其反码的基础上+1，比如-1的补码是1111 1111。 根据补码的转换形式，对一个数取反再加一可以得到该数的相反数 1234String s5 = Integer.toBinaryString(5); // 101String s_5 = Integer.toBinaryString(-5); // 11111111111111111111111111111011，可以看到-5的二进制是5的二进制取反后加一int n1 = ~5 + 1; // n1 = -5int n2 = ~-5 + 1; // n2 = 5 位操作实现加减乘除四则运算 待研究 https://www.cnblogs.com/ygj0930/p/6412875.html]]></content>
+      <categories>
+        <category>technology</category>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>bit operation</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[git的基本操作]]></title>
     <url>%2Fposts%2F45d3ebe2%2F</url>
-    <content type="text"><![CDATA[创建ssh key与github通信 123ssh-keygen -t rsa -C &quot;your_email@example.com&quot;gedit ~/.ssh/id_rsa.pubssh -T git@github.com 基础操作 123456789101112131415git config --global core.editor vimgit config --global user.name "yourname"git config --global user.email "email@example.com"git log # 显示git的log，按q exitgit push -u origin master # 上面命令将本地的master分支推送到origin主机git branch # 查看所有分支git branch dev # 创建分支devgit checkout dev # 切换到分支devgit checkout -b dev # 新建并切换到分支devgit merge dev # 合并dev到当前分支git branch -d # 删除dev分支，只能删除已经merge的分支git push -u origin dev:dev_remote # 提交本地分支dev到origin，作为dev_remote分支git push -u origin :dev_remote # 删除origin的dev_remote分支，本地分支不会被删除 commit规范 12345&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;// blank line&lt;body&gt;// blank line&lt;footer&gt; 7种type： feat：新功能（feature） fix：修补bug docs：文档（documentation） style： 格式（不影响代码运行的变动） refactor：重构（即不是新增功能，也不是修改bug的代码变动） test：增加测试 chore：构建过程或辅助工具的变动]]></content>
+    <content type="text"><![CDATA[创建ssh key与github通信 123ssh-keygen -t rsa -C &quot;your_email@example.com&quot;gedit ~/.ssh/id_rsa.pubssh -T git@github.com 基础操作 123456789101112131415git config --global core.editor vimgit config --global user.name "yourname"git config --global user.email "email@example.com"git log # 显示git的log，按q exitgit push -u origin master # 上面命令将本地的master分支推送到origin主机git branch # 查看所有分支git branch dev # 创建分支devgit checkout dev # 切换到分支devgit checkout -b dev # 新建并切换到分支devgit merge dev # 合并dev到当前分支git branch -d # 删除dev分支，只能删除已经merge的分支git push -u origin dev:dev_remote # 提交本地分支dev到origin，作为dev_remote分支。如果不写:dev_remote，则远程分支名默认与本地分支名相同git push -u origin :dev_remote # 删除origin的dev_remote分支，本地分支不会被删除 commit规范 12345&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;// blank line&lt;body&gt;// blank line&lt;footer&gt; 7种type： feat：新功能（feature） fix：修补bug docs：文档（documentation） style： 格式（不影响代码运行的变动） refactor：重构（即不是新增功能，也不是修改bug的代码变动） test：增加测试 chore：构建过程或辅助工具的变动]]></content>
       <categories>
         <category>technology</category>
         <category>tools</category>
@@ -349,8 +362,8 @@
       <tags>
         <tag>algorithm</tag>
         <tag>CLRS</tag>
-        <tag>heap sort</tag>
         <tag>sort</tag>
+        <tag>heap sort</tag>
       </tags>
   </entry>
   <entry>
@@ -409,8 +422,8 @@
       <tags>
         <tag>algorithm</tag>
         <tag>CLRS</tag>
-        <tag>sort</tag>
         <tag>insertion sort</tag>
+        <tag>sort</tag>
       </tags>
   </entry>
   <entry>
