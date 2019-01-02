@@ -266,7 +266,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">60</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">62</span></a>
 
   </li>
         
@@ -304,7 +304,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
 
   </li>
 
@@ -369,6 +369,218 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/ffb8ca73/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scloudyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Scloudyy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/posts/ffb8ca73/" class="post-title-link" itemprop="https://blog.scloudyy.com/page/3/index.html">矩阵链 Matrix Chain</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-20 23:07:26" itemprop="dateCreated datePublished" datetime="2018-04-20T23:07:26-07:00">2018-04-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-17 12:15:41" itemprop="dateModified" datetime="2018-12-17T12:15:41-08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/CLRS/" itemprop="url" rel="index"><span itemprop="name">CLRS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/posts/ffb8ca73/" class="leancloud_visitors" data-flag-title="矩阵链 Matrix Chain">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="问题描述">问题描述</h1>
+<p>由于矩阵乘法满足结合律，所以对于连续相乘的矩阵链，可以使用不同的计算次序求解矩阵积。不同的相乘次序所需要的总元素相乘量是不同的，这种计算次序可以用加括号的方式来确定。</p>
+<p>完全括号化指：如果单个矩阵或者两个完全括号化的矩阵积都被括号包括，则这个矩阵链是完全括号化的。</p>
+<p><strong>矩阵链问题描述：</strong></p>
+<p>对于给定的具有 <span class="math inline">\(n\)</span> 个矩阵的矩阵链：<span class="math inline">\(&lt;A_1, A_2, ..., A_n&gt;\)</span>，其中 <span class="math inline">\(A_i\)</span> 的维度为 <span class="math inline">\(p_{i-1}*p_i\)</span>。求矩阵链的完全括号化方式，使得元素相乘次数最少。</p>
+<p><strong>规模为 <span class="math inline">\(n\)</span> 的矩阵链有两个子问题，需要进行 <span class="math inline">\(n-1\)</span> 次决策得到最优解</strong></p>
+<h1 id="动态规划">动态规划</h1>
+<h2 id="最优解的结构">最优解的结构</h2>
+<p>动态规划第一步时寻找问题的最优子结构，之后使用子结构的解构造原问题的解。</p>
+<p>矩阵链问题的最优子结构可以被描述为：设矩阵链 <span class="math inline">\(A[1, n]\)</span> 被分割为两个子链 <span class="math inline">\(A[1, k]\)</span> 与 <span class="math inline">\(A[k+1, n]\)</span>，则这两个子链都必须具有最优完全括号化方式，否则将它们合并时原问题的解就不是最优的。这两个子链是矩阵链问题的一个规模较小的实例。所以矩阵链问题存在最优子结构。（动态规划标志之一：存在最优子结构）</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/ffb8ca73/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2280,203 +2492,6 @@ r_n = max(p_i + r_{n-i})
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/8f6abaad/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="scloudyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Scloudyy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/posts/8f6abaad/" class="post-title-link" itemprop="https://blog.scloudyy.com/page/3/index.html">LaTeX数学公式</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-07 10:46:14" itemprop="dateCreated datePublished" datetime="2018-04-07T10:46:14-07:00">2018-04-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-17 12:15:51" itemprop="dateModified" datetime="2018-12-17T12:15:51-08:00">2018-12-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/latex/" itemprop="url" rel="index"><span itemprop="name">latex</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/posts/8f6abaad/" class="leancloud_visitors" data-flag-title="LaTeX数学公式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="希腊字母">希腊字母</h1>
-<p><span class="math inline">\(\alpha\)</span> : \alpha<br> <span class="math inline">\(\beta\)</span> : \beta<br> <span class="math inline">\(\gamma\)</span> : \gamma<br> <span class="math inline">\(\delta\)</span> : \delta <br> <span class="math inline">\(\epsilon\)</span> : \epsilon <br> <span class="math inline">\(\zeta\)</span> : \zeta <br> <span class="math inline">\(\eta\)</span> : \eta <br> <span class="math inline">\(\theta\)</span> : \theta <br> <span class="math inline">\(\Theta\)</span> : \Theta <br> <span class="math inline">\(\iota\)</span> : \iota <br> <span class="math inline">\(\kappa\)</span> : \kappa <br> <span class="math inline">\(\lambda\)</span> : \lambda <br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/posts/8f6abaad/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2526,7 +2541,7 @@ r_n = max(p_i + r_{n-i})
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2698,7 +2713,11 @@ r_n = max(p_i + r_{n-i})
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2775,7 +2794,7 @@ r_n = max(p_i + r_{n-i})
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
@@ -3350,9 +3369,9 @@ r_n = max(p_i + r_{n-i})
   
     
       
-    
-      
         
+      
+    
       
     
       
