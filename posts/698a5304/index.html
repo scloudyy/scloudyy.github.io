@@ -120,17 +120,17 @@
   <meta name="description" content="强联通分量 有向图 \(G=(V, E)\) 的一个强连通分量是一个最大的顶点子集\(C\)，\(C\)中每对顶点\((s, t)\)都是互达的。无向图只要节点相连就是互达的，只要使用BFS就行  Tarjan  对graph进行dfs，节点按访问顺序入栈。但节点v访问结束所有子节点后，检测该节点能否到达栈中任意更早入栈的节点：如果能，说明该节点能够访问到祖先，是SCC中的节点，只是不是root，">
 <meta name="keywords" content="algorithm,strongly connected component,scc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="strongly-connected-component">
-<meta property="og:url" content="https://blog.scloudyy.com/posts/e05a60ec/index.html">
+<meta property="og:title" content="强联通分量">
+<meta property="og:url" content="https://blog.scloudyy.com/posts/698a5304/index.html">
 <meta property="og:site_name" content="Scloudyy&#39;s blog">
 <meta property="og:description" content="强联通分量 有向图 \(G=(V, E)\) 的一个强连通分量是一个最大的顶点子集\(C\)，\(C\)中每对顶点\((s, t)\)都是互达的。无向图只要节点相连就是互达的，只要使用BFS就行  Tarjan  对graph进行dfs，节点按访问顺序入栈。但节点v访问结束所有子节点后，检测该节点能否到达栈中任意更早入栈的节点：如果能，说明该节点能够访问到祖先，是SCC中的节点，只是不是root，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/Graph_Condensation.svg.png">
 <meta property="og:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/250px-Tarjan's_Algorithm_Animation.gif">
 <meta property="og:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/Kosaraju'sAlgorithm1finish.png">
-<meta property="og:updated_time" content="2019-01-02T19:12:53.992Z">
+<meta property="og:updated_time" content="2019-01-02T19:15:35.384Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="strongly-connected-component">
+<meta name="twitter:title" content="强联通分量">
 <meta name="twitter:description" content="强联通分量 有向图 \(G=(V, E)\) 的一个强连通分量是一个最大的顶点子集\(C\)，\(C\)中每对顶点\((s, t)\)都是互达的。无向图只要节点相连就是互达的，只要使用BFS就行  Tarjan  对graph进行dfs，节点按访问顺序入栈。但节点v访问结束所有子节点后，检测该节点能否到达栈中任意更早入栈的节点：如果能，说明该节点能够访问到祖先，是SCC中的节点，只是不是root，">
 <meta name="twitter:image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/Graph_Condensation.svg.png">
 
@@ -139,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="https://blog.scloudyy.com/posts/e05a60ec/">
+  <link rel="canonical" href="https://blog.scloudyy.com/posts/698a5304/">
 
 
 
@@ -149,7 +149,7 @@
   };
 </script>
 
-  <title>strongly-connected-component | Scloudyy's blog</title>
+  <title>强联通分量 | Scloudyy's blog</title>
   
 
 
@@ -393,7 +393,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/e05a60ec/">
+    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/698a5304/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="scloudyy">
@@ -410,7 +410,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">strongly-connected-component
+          <h2 class="post-title" itemprop="name headline">强联通分量
 
               
             
@@ -436,7 +436,7 @@
                 
               
 
-              <time title="创建时间：2019-01-02 11:06:27 / 修改时间：11:12:53" itemprop="dateCreated datePublished" datetime="2019-01-02T11:06:27-08:00">2019-01-02</time>
+              <time title="创建时间：2019-01-02 11:06:27 / 修改时间：11:15:35" itemprop="dateCreated datePublished" datetime="2019-01-02T11:06:27-08:00">2019-01-02</time>
             
 
             
@@ -479,7 +479,7 @@
 
           
           
-             <span id="/posts/e05a60ec/" class="leancloud_visitors" data-flag-title="strongly-connected-component">
+             <span id="/posts/698a5304/" class="leancloud_visitors" data-flag-title="强联通分量">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -569,14 +569,7 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="/posts/d44bb4df/" rel="bookmark">贪心算法 Greedy Algorithm</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="/posts/f8c8bd2a/" rel="bookmark">理解动态规划</a></div>
+      <div class="popular-posts-title"><a href="/posts/26e60590/" rel="bookmark">堆排序 Heap Sort</a></div>
       
     </li>
   
@@ -584,6 +577,13 @@
       
       
       <div class="popular-posts-title"><a href="/posts/df92661/" rel="bookmark">二叉搜索 Binary Search</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="/posts/f8c8bd2a/" rel="bookmark">理解动态规划</a></div>
       
     </li>
   
@@ -633,7 +633,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://blog.scloudyy.com/posts/e05a60ec/" title="strongly-connected-component">https://blog.scloudyy.com/posts/e05a60ec/</a>
+    <a href="https://blog.scloudyy.com/posts/698a5304/" title="强联通分量">https://blog.scloudyy.com/posts/698a5304/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -1177,9 +1177,9 @@
   
     <script>
       var disqus_config = function () {
-        this.page.url = "https://blog.scloudyy.com/posts/e05a60ec/";
-        this.page.identifier = "posts/e05a60ec/";
-        this.page.title = 'strongly-connected-component';
+        this.page.url = "https://blog.scloudyy.com/posts/698a5304/";
+        this.page.identifier = "posts/698a5304/";
+        this.page.title = '强联通分量';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
