@@ -430,7 +430,7 @@
                 
               
 
-              <time title="创建时间：2019-01-02 11:06:27 / 修改时间：11:15:35" itemprop="dateCreated datePublished" datetime="2019-01-02T11:06:27-08:00">2019-01-02</time>
+              <time title="创建时间：2019-01-02 11:06:27 / 修改时间：11:19:47" itemprop="dateCreated datePublished" datetime="2019-01-02T11:06:27-08:00">2019-01-02</time>
             
 
             
@@ -507,14 +507,14 @@
         
           
             <h1 id="强联通分量">强联通分量</h1>
-<p>有向图 <span class="math inline">\(G=(V, E)\)</span> 的一个强连通分量是一个最大的顶点子集<span class="math inline">\(C\)</span>，<span class="math inline">\(C\)</span>中每对顶点<span class="math inline">\((s, t)\)</span>都是互达的。无向图只要节点相连就是互达的，只要使用BFS就行</p>
+<p>有向图 <span class="math inline">\(G=(V, E)\)</span> 的一个强连通分量是一个最大的顶点子集<span class="math inline">\(C​\)</span>，<span class="math inline">\(C​\)</span>中每对顶点<span class="math inline">\((s, t)​\)</span>都是互达的。无向图只要节点相连就是互达的，只要使用BFS就行</p>
 <p><img src="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/Graph_Condensation.svg.png"></p>
 <h1 id="tarjan">Tarjan</h1>
 <p><img src="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/technology/algorithm/strongly-connected-component/250px-Tarjan&#39;s_Algorithm_Animation.gif"></p>
 <p>对graph进行dfs，节点按访问顺序入栈。但节点v访问结束所有子节点后，检测该节点能否到达栈中任意更早入栈的节点：如果能，说明该节点能够访问到祖先，是SCC中的节点，只是不是root，将该节点保留在栈中；如果不能，说明该节点是强连通域的root（是否为root完全看访问顺序），则将该节点以及比该节点更晚入栈的节点出栈，这些节点构成一个SCC</p>
-<h3 id="stack循环不变性">Stack循环不变性</h3>
+<h2 id="stack循环不变性">Stack循环不变性</h2>
 <p>当节点被访问时入栈，当对后代节点递归访问完成后，stack的循环不变性为：当且仅当该节点能够到达stack中更早入栈的元素时，保留该节点在stack中，否则，将该节点以及更迟入栈的节点出栈，保持循环不变性</p>
-<h3 id="时间戳">时间戳</h3>
+<h2 id="时间戳">时间戳</h2>
 <ul>
 <li>DFN: 该节点是第几个被DFS访问的节点</li>
 <li>LOW: 节点通过tree edge向下访问自己的后代，通过back edge向上访问自己的祖先，“Low” 记录了该节点通过<strong>子树</strong>最高可到达祖先（最小的DFN值）</li>
