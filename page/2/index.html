@@ -266,7 +266,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">62</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">63</span></a>
 
   </li>
         
@@ -304,7 +304,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">38</span></a>
 
   </li>
 
@@ -369,6 +369,232 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/4c435fff/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="scloudyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Scloudyy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/posts/4c435fff/" class="post-title-link" itemprop="https://blog.scloudyy.com/page/2/index.html">C++关联容器小结</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-04 13:36:46" itemprop="dateCreated datePublished" datetime="2018-05-04T13:36:46-07:00">2018-05-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-16 23:44:58" itemprop="dateModified" datetime="2018-12-16T23:44:58-08:00">2018-12-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/cpp/" itemprop="url" rel="index"><span itemprop="name">cpp</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/posts/4c435fff/" class="leancloud_visitors" data-flag-title="C++关联容器小结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <!--
+> **原文首发于：** (blog.scloudyy.com)[https://blog.scloudyy.com/]
+> **原文链接：** (Scloudyy's blog | )[]
+-->
+<p>关联容器与顺序容器的区别在于，顺序容器线性存储并通过位置索引存取，关联容器则通过关键字存取</p>
+<h1 id="关联容器">关联容器</h1>
+<ul>
+<li>有序关联容器(按key值排序)
+<ul>
+<li>map: key-value pairs</li>
+<li>set: 只有key值</li>
+<li>multimap: 允许key重复的map，定义在<map>中</map></li>
+<li>multiset: 允许key重复的set，定义在<set>中</set></li>
+</ul></li>
+<li>无序关联容器
+<ul>
+<li>unordered_map: 通过hash组织的map</li>
+<li>unordered_set: 通过hash组织的set</li>
+<li>unordered_multimap: 通过hash组织的multimap，定义在<unordered_map>中</unordered_map></li>
+<li>unordered_multiset: 通过hash组织的multiset，定义在<unordered_set>中</unordered_set></li>
+</ul></li>
+</ul>
+<p>map中的元素都是pair对象，pair中first是const成员，对应key值，second对应value</p>
+<p><strong>range-based for 与 解引用迭代器 获得的都是value_type，对于set，value_type=key_type；对于map，value_type=pair&lt;const key_type, mapped_type&gt;</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m = &#123; &#123;<span class="string">"a"</span>, <span class="number">1</span>&#125;, &#123;<span class="string">"b"</span>, <span class="number">2</span>&#125; &#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;e : m) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"key:"</span> &lt;&lt; e.first &lt;&lt; <span class="string">" value:"</span> &lt;&lt; e.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> map_it = m.cbegin(); map_it != m.cend(); map_it++) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"key:"</span> &lt;&lt; map_it-&gt;first &lt;&lt; <span class="string">" value:"</span> &lt;&lt; map_it-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">5</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    s.emplace(i);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;v : s)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s.cbegin(); it != s.cend(); it++)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在有序关联容器中，key的类型需要支持 &lt; 操作，否则需要自定义比较操作</p></li>
+<li><p>在无序关联容器并不对key值进行排序，而使用hash函数构建容器，key的类型需要支持hash 以及 == 操作，否则需要自定义hash以及==</p></li>
+<li><p><strong>有序关联容器如set可以用于代替HashHeap，实现带remove操作的Heap</strong></p></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*set.begin(); // 最小值，注意set, map没有back()或front()</span><br><span class="line">*set.rbegin(); // 最大值</span><br><span class="line">set.erase(prev(set.rbegin().base())); // 删除最大值，注意erase只接受正向迭代器，需要将rbegin转换为指向同一位置的正向迭代器</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/4c435fff/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2280,212 +2506,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.scloudyy.com/posts/d44bb4df/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="scloudyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://blog-scloudyy-com-1253714382.cos.ap-shanghai.myqcloud.com/blog.self/%E4%BA%91%E4%B8%8E%E6%9C%88.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Scloudyy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/posts/d44bb4df/" class="post-title-link" itemprop="https://blog.scloudyy.com/page/2/index.html">贪心算法 Greedy Algorithm</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-22 23:18:29" itemprop="dateCreated datePublished" datetime="2018-04-22T23:18:29-07:00">2018-04-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-17 12:15:22" itemprop="dateModified" datetime="2018-12-17T12:15:22-08:00">2018-12-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/" itemprop="url" rel="index"><span itemprop="name">technology</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/technology/algorithm/CLRS/" itemprop="url" rel="index"><span itemprop="name">CLRS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/posts/d44bb4df/" class="leancloud_visitors" data-flag-title="贪心算法 Greedy Algorithm">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="贪心算法">贪心算法</h1>
-<p>贪心算法是指在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，只做出在某种意义上的局部最优解。</p>
-<h1 id="贪心算法-vs-动态规划"><strong>贪心算法 vs 动态规划</strong></h1>
-<p><strong>动态规划在做决策时需要根据子问题的最优解来决定当前哪个决策时最优的</strong>，所以动态规划通常采用自底向上的方法求解。相反，<strong>贪心算法只根据当前状态做出决策，其最优决策与子问题无关</strong>，所以贪心算法自顶向下求解，可以不解决任何子问题就做出第一个决策。如果可以证明当前决策既不受之前决策的影响，也不影响后续决策，则应该使用贪心算法</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/posts/d44bb4df/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2535,7 +2555,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2711,7 +2731,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -3365,9 +3387,9 @@
       
     
       
-        
-      
     
+      
+        
       
     
       
